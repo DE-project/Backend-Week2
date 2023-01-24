@@ -38,9 +38,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,6 +49,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
+    'apps.users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTH_USER_MODEL = 'users.User'
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
