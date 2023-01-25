@@ -20,7 +20,7 @@ class TestBoard(APITestCase):
             password = make_password("123"),
             name     = "aaa",
             email    = "aaa@gmail.com",
-            is_staff = False  # 일반유저
+            birth_date = "1984-07-07"
             )
         self.user1 = User.objects.create(
             id       = 2,
@@ -28,7 +28,7 @@ class TestBoard(APITestCase):
             password = make_password("123"),
             name     = "aaa1",
             email    = "aaa1@gmail.com",
-            is_staff = False  # 일반유저
+            birth_date = "1984-08-07"
             )    
         self.board = Board.objects.create(
             id      = 1,
