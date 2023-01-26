@@ -18,19 +18,17 @@ class CustomUserManager(BaseUserManager):
             email=email,
             name=name,
         )
-
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, name, email, username, password=None):
+    def create_superuser(self, name, email, username, password=None, **kwargs):
         superuser = self.create_user(
             username=username,
             password=password,
             email=email,
-            name=name
+            name=name,
         )
-
         superuser.is_superuser = True
         superuser.is_active = True
         superuser.save(using=self._db)
@@ -83,7 +81,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'name']
+    REQUIRED_FIELDS = ['email', 'name', 'gender', 'birth_date']
 
     class Meta:
         db_table = 'user'
