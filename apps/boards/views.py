@@ -2,9 +2,15 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Board
-from .serializers import BoardSerializer
-from .permissions import IsAuthorOrReadOnly, IsAuthenticatedOrReadOnly
+from .models import Board, Cartegory
+from .serializers import BoardSerializer, CartegorySerializer
+from .permissions import IsAuthorOrReadOnly, IsAuthenticatedOrReadOnly, IsStaffOrReadOnly
+
+class CartegoryView(ListCreateAPIView, RetrieveUpdateDestroyAPIView):
+    queryset = Cartegory.objects.all()
+    serializer_class = CartegorySerializer
+    permission_classes = [IsStaffOrReadOnly]
+
 
 class BoardView(ListCreateAPIView):
     queryset = Board.objects.all()

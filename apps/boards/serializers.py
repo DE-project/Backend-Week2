@@ -1,7 +1,11 @@
 from rest_framework import serializers
 
-from .models import Board
+from .models import Board, Cartegory
 
+class CartegorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cartegory
+        fields = ('name',)
 
 class BoardSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
