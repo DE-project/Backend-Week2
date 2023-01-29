@@ -21,7 +21,6 @@ class BoardView(ListCreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
-        # 현재 요청한 유저를 작성자로 설정
         serializer.save(user=self.request.user)
     
     def list(self, request, *args, **kwargs):

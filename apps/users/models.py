@@ -22,14 +22,15 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, name, email, username, password=None, **kwargs):
+    def create_superuser(self, name, email, username, password=None, **extra_fields):
         superuser = self.create_user(
             username=username,
             password=password,
             email=email,
             name=name,
+            **extra_fields
         )
-        superuser.is_superuser = True
+        superuser.is_staff = True
         superuser.is_active = True
         superuser.save(using=self._db)
         return superuser
@@ -62,14 +63,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
     birth_date = models.DateField(
         verbose_name=_('Birth Date'),
-        null=False
+        null=False,
+        default="2020-01-01"
         )
     is_active = models.BooleanField(
         verbose_name=_('Is active'),
         default=True
         )
-    is_superuser = models.BooleanField(
-        verbose_name=_('Is superuser'),
+    is_staff = models.BooleanField(
+        verbose_name=_('Is staff'),
         default=False
         )
     date_joined = models.DateTimeField(
@@ -78,10 +80,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = CustomUserManager()
-
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'name', 'gender', 'birth_date']
+    REQUIRED_FIELDS = ['email', 'name', 'birth_date', 'gender']
+
+    objects = CustomUserManager()
 
     class Meta:
         db_table = 'user'

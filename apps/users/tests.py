@@ -20,7 +20,7 @@ class TestUser(APITestCase):
         self.user.save()
         
 
-    # 회원가입
+    # 회원가입 성공 테스트
     def test_register_success(self):
         
         self.user_data = {
@@ -54,7 +54,7 @@ class TestUser(APITestCase):
         self.response = self.client.post(self.register_url, data = self.user_data, format='json')
         self.assertEqual(self.response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    # 회원가입시 패스워드 확인 실패
+    # 회원 가입시 패스워드 확인 실패
     def test_register_password_check_fail(self):
         
         self.user_data = {

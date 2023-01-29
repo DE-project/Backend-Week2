@@ -9,7 +9,7 @@ class IsAuthenticatedOrReadOnly(BasePermission):
     ERR01
     """
     message = "[Access Denied: ERR01] 접근 권한이 없습니다."
-
+    
     def has_permission(self, request, view):
         return bool(
             request.method in SAFE_METHODS or
@@ -38,12 +38,12 @@ class IsAuthorOrReadOnly(BasePermission):
 
 class IsStaffOrReadOnly(BasePermission):
     """
-    운영 등급 회원(is_staff=True) 에게 모든 권한을 허용, 일반 회원은 읽기만 가능
+    운영 등급 회원(is_superuser=True) 에게 모든 권한을 허용, 일반 회원은 읽기만 가능
     운영자 : CRUD
     일반 회원 : R
     ERR03
     """
-    message = "[Access Denied: ERR03] 게시글 등록, 수정, 삭제 권한이 없습니다."
+    message = "[Access Denied: ERR03] 카테고리 등록, 수정, 삭제 권한이 없습니다."
 
     def has_permission(self, request, view):
         if request.method in SAFE_METHODS:
