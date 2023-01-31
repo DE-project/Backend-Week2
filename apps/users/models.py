@@ -5,7 +5,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Permis
 from django.utils.translation import gettext_lazy as _
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, username, email, name, password, **kwargs):
+    def create_user(self, username, email, name, password, **extra_fields):
         if not username:
             raise ValueError("Users must have a username")
         if not email:
@@ -17,6 +17,7 @@ class CustomUserManager(BaseUserManager):
             username=username,
             email=email,
             name=name,
+            **extra_fields
         )
         user.set_password(password)
         user.save(using=self._db)
@@ -64,7 +65,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     birth_date = models.DateField(
         verbose_name=_('Birth Date'),
         null=False,
-        default="2020-01-01"
         )
     is_active = models.BooleanField(
         verbose_name=_('Is active'),
